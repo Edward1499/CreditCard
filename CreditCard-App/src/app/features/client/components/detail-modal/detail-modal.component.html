@@ -1,0 +1,59 @@
+<div *ngIf="client" class="container-fluid">
+    <div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Detalle Cliente</h4>
+	</div>
+    <div class="modal-body">
+        <table class="table table-bordered" style="width: 50%;">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <td>{{client.name}}</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Apellido</th>
+                <td>{{client.lastName}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Numero de contacto</th>
+                <td>{{client.phoneNumber}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Opcupacion</th>
+                <td>{{client.occupation}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Estado</th>
+                <td>{{client.isActive ? 'Activo' : 'Inactivo'}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="client.creditCards.length"class="row">
+            <hr>
+            <div class="col-12">
+                <h3>Tarjetas de credito</h3>
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Banco</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Mes</th>
+                        <th scope="col">Año</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let creditCard of client.creditCards">
+                        <td>{{getBankName(creditCard.bank)}}</td>
+                        <td>{{creditCard.type === 1 ? 'Credito' : 'Debito'}}</td>
+                        <td>{{creditCard.number}}</td>
+                        <td>{{creditCard.month}}</td>
+                        <td>{{creditCard.year}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+          </div>
+    </div>
+</div>

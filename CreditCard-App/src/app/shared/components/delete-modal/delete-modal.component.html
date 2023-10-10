@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Eliminacion de registro</h4>
+    <button
+        type="button"
+        class="btn-close"
+        aria-describedby="modal-title"
+        (click)="onClose()"
+    ></button>
+</div>
+<div class="modal-body">
+    <p>
+        <strong>Estas seguro que quieres eliminar este registro?</strong>
+    </p>
+    <p>
+        Toda informacion asociada a este registro sera eliminada permanentemente.
+        <span class="text-danger">Esta operacion no puede ser reversada.</span>
+    </p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="onClose()">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="onClickRemove()">Eliminar</button>
+</div>

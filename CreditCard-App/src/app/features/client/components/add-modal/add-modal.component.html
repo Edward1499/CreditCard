@@ -1,0 +1,144 @@
+<div class="container-fluid">
+    <div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">{{id ? 'Actualizar' : 'Agregar'}} Cliente</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="onClose()"></button>
+	</div>
+    <div class="modal-body">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input formControlName="name" 
+                               type="text" 
+                               class="form-control" 
+                               id="name">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Apellido</label>
+                        <input formControlName="lastName" 
+                               type="text" 
+                               class="form-control" 
+                               id="lastName">
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Numero de contacto</label>
+                        <input formControlName="phoneNumber" 
+                               type="number" 
+                               class="form-control" 
+                               id="phoneNumber">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="occupation" class="form-label">Ocupacion</label>
+                        <input formControlName="occupation" 
+                               type="text" 
+                               class="form-control" 
+                               id="occupation">
+                    </div>
+                </div>
+            </div> 
+            <div *ngIf="id" class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Estado</label>
+                        <select formControlName="isActive" 
+                                class="form-select form-select-md" 
+                                id="isActive">
+                            <option [ngValue]="true">Activo</option>
+                            <option [ngValue]="false">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+            </div> 
+            <hr>
+            <h3>Tarjetas de credito</h3>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <button class="btn btn-primary" 
+                            (click)="addCreditCard()"
+                            [disabled]="!isActive">
+                        <i class="fa-solid fa-plus"></i>Agregar tarjeta
+                    </button>
+                </div>
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Tipo de tarjeta</th>
+                            <th scope="col">Banco</th>
+                            <th scope="col">Numero</th>
+                            <th scope="col">Mes vencimiento</th>
+                            <th scope="col">Año vencimiento</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container *ngFor="let creditCardForm of $any(creditCards).controls; let i = index">
+                            <tr [formGroup]="creditCardForm">
+                                <td>
+                                    <select formControlName="type" 
+                                            class="form-select form-select-md" 
+                                            id="type">
+                                        <option [value]="1">Credito</option>
+                                        <option [value]="2">Debito</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select formControlName="bank" 
+                                            class="form-select form-select-md" 
+                                            id="bank">
+                                        <option *ngFor="let bank of banks" [value]="bank.key">{{bank.value}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input formControlName="number" 
+                                    type="number" 
+                                    class="form-control" 
+                                    (input)="onCreditCardNumberChange(i)"
+                                    id="number">
+                                </td>
+                                <td>
+                                    <select formControlName="month" 
+                                            class="form-select form-select-md" 
+                                            id="month">
+                                        <option *ngFor="let month of months" [value]="month">{{month}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select formControlName="year" 
+                                            class="form-select form-select-md" 
+                                            id="year">
+                                        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                                    </select>
+                                </td>
+                                <td *ngIf="isActive" style="padding-top: 16px;">
+                                    <i style="font-size: 20px; cursor: pointer;" 
+                                       class="fa fa-trash" 
+                                       title="Eliminar" 
+                                       aria-hidden="true"
+                                       (click)="removeCreditCard(i)"></i>
+                                </td>
+                              </tr>
+                          </ng-container>
+                        </tbody>
+                      </table>
+                </div>
+                <hr>
+                <div class="col-12 d-flex justify-content-end">
+                    <button class="btn btn-outline-success" 
+                            (click)="onSave()"
+                            [disabled]="!form.valid">
+                        Guardar cambios
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
